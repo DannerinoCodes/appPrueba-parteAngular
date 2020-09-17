@@ -1,0 +1,41 @@
+<div class="card text-white bg-dark mb-3">
+  <div class="card-header">Clientes</div>
+  <div class="card-body">
+    <h5 class="card-title">Listado</h5>
+
+    <div class="my-2 text-left">
+      <button class="btn btn-rounded btn-primary" name="button" [routerLink] ="['/clientes/form']">Crear clientes</button>
+    </div>
+    <div class="alert alert-info" *ngIf="clientes?.length<=0">
+      No existen registros
+    </div>
+  <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>nombre</th>
+        <th>apellido</th>
+        <th>fecha</th>
+        <th>email</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+<tbody>
+  <tr *ngFor="let item of clientes">
+    <td>{{ item.id}}</td>
+    <td>{{ item.nombre}}</td>
+    <td>{{ item.apellido}}</td>
+    <td>{{ item.createAt}}</td>
+    <td>{{ item.email}}</td>
+    <td>
+      <button type="button" [routerLink]="['/clientes/form', item.id]" class="btn btn-primary">Editar</button>
+    </td>
+    <td>
+      <button type="button" (click)='delete(item)' class="btn btn-danger">Eliminar</button>
+    </td>
+  </tr>
+</tbody>
+  </table>
+<paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
+    </div>

@@ -1,0 +1,67 @@
+<ul class="alert alert-danger" *ngIf="errores?.length>0">
+  <li *ngFor="let err of errores">{{ err }}</li>
+</ul>
+
+<div class="card bg-dark text-white">
+  <div class="card-header">{{titulo}}</div>
+<div class="card-body">
+
+<form>
+<div class="form-group row">
+
+  <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+  <div class="col-sm-6">
+    <input type="text"  class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required minlength="4" #nombre="ngModel">
+    <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+      <div *ngIf="nombre.errors.required">
+          Debe introducir un nombre
+      </div>
+      <div *ngIf="nombre.errors.minlength">
+          Debe introducir al menos 4 caracteres
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+
+  <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+  <div class="col-sm-6">
+    <input type="text" name="apellido" [(ngModel)]="cliente.apellido" #apellido="ngModel" required class="form-control">
+  </div>
+  <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+    <div *ngIf="apellido.errors.required">
+        Debe introducir un apellido
+    </div>
+    </div>
+</div>
+
+<div class="form-group row">
+
+  <label for="email" class="col-form-label col-sm-2">E-mail</label>
+  <div class="col-sm-6">
+    <input type="text" name="email" [(ngModel)]="cliente.email" #email="ngModel" required email class="form-control">
+  </div>
+  <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+    <div *ngIf="email.errors.required">
+        Debe introducir un email
+    </div>
+    <div *ngIf="email.errors.email">
+        El email debe ser válido
+    </div>
+    </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-sm-6">
+      <button class="btn btn-primary" type="button"  (click)='create()' *ngIf="!cliente.id else elseBlock" role="button">Crear</button>
+  </div>
+  <ng-template #elseBlock>
+    <button class="btn btn-primary" type="button"  (click)='update()' role="button">Editar</button>
+
+  </ng-template>
+</div>
+  </form>
+
+  </div>
+</div>
